@@ -163,6 +163,17 @@ class RecipeController {
     })
   }
 
+  *ajaxDelete(request, response) {
+    const id = request.param('id')
+    const recipe = yield Recipe.find(id)
+    if (!recipe) {
+      response.notFound('Hiba történt a feldolgozás során!')
+      return
+    }
+    yield recipe.delete()
+    response.ok({success: true});
+  }
+
 }
 
 module.exports = RecipeController
